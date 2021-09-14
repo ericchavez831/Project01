@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         System.out.println("Printing exercises");
-        List<Exercise> exercises = ApiCall.getExercises();
+        List<Exercise> exercises = ApiCall.getByBodypart("waist");
         System.out.println("Exercises: " + exercises);
     }
 }

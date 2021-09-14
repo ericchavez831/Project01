@@ -32,9 +32,36 @@ public class ApiCall{
 
         return null;
     }
-    public List<Exercise> getByBodypart(String bodypart){
+    public static List<Exercise> getByBodypart(String bodypart){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://exercisedb.p.rapidapi.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        return null;
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+
+        Call<List<Exercise>> call = apiInterface.getByBodypart(bodypart);
+
+        List<Exercise> apiResponse = new ArrayList<>();
+
+        call.enqueue(new Callback<List<Exercise>>() {
+            @Override
+            public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
+                if(!response.isSuccessful()){
+                    System.out.println("Response unsuccessful");
+                }
+                else {
+                    System.out.println("Successful API call");
+                    apiResponse.addAll(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Exercise>> call, Throwable t) {
+                System.out.println("Failed API call");
+            }
+        });
+        return apiResponse;
     }
     public static List<Exercise> getExercises(){
         Retrofit retrofit = new Retrofit.Builder()
