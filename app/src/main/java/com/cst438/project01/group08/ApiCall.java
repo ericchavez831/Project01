@@ -48,6 +48,8 @@ public class ApiCall{
 
         List<Exercise> apiResponse = new ArrayList<>();
 
+
+
         call.enqueue(new Callback<List<Exercise>>() {
             @Override
             public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
@@ -57,9 +59,6 @@ public class ApiCall{
                 else {
                     System.out.println("Successful API call");
                     apiResponse.addAll(response.body());
-                    for (Exercise e : response.body()) {
-                        System.out.println(e.getName());
-                    }
                 }
             }
 
