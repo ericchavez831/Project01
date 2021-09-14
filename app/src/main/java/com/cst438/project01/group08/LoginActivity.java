@@ -6,7 +6,7 @@ import androidx.room.Room;
 import android.os.Bundle;
 
 import com.cst438.project01.group08.data.UserDAO;
-import com.cst438.project01.group08.data.UserDataBase;
+import com.cst438.project01.group08.model.UserDataBase;
 import com.cst438.project01.group08.model.User;
 
 import android.content.Intent;
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
-        db = dataBase.getUserDAO();
+        db = dataBase.getUserDao();
 
 
         textViewRegister.setOnClickListener(new View.OnClickListener() {
