@@ -1,6 +1,19 @@
 package com.cst438.project01.group08;
 
-public class ApiCall {
+import android.os.AsyncTask;
+
+import java.io.IOException;
+import java.nio.channels.AsynchronousChannelGroup;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class ApiCall{
     // URL: https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb
     // API URL endpoint: https://exercisedb.p.rapidapi.com/exercises
     // x-rapidapi-key: c91b63fe30mshb3a3bbc701b73f4p164cf9jsn79fbf7d522a7
@@ -15,17 +28,48 @@ public class ApiCall {
     "target":"string"
     }
      */
-    public String getByName(String name){
+    public List<Exercise> getByName(String name){
 
-        return "Placeholder";
+        return null;
     }
-    public String getByBodypart(String bodypart){
-        return "Placeholder";
+    public List<Exercise> getByBodypart(String bodypart){
 
+        return null;
     }
-    public String getExercises(){
+    public static List<Exercise> getExercises(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://exercisedb.p.rapidapi.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        return "Placeholder";
+        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+
+        Call<List<Exercise>> call = apiInterface.getExercises();
+
+        List<Exercise> apiResponse = new ArrayList<>();
+
+        call.enqueue(new Callback<List<Exercise>>() {
+            @Override
+            public void onResponse(Call<List<Exercise>> call, Response<List<Exercise>> response) {
+                if(!response.isSuccessful()){
+                    System.out.println("Response unsuccessful");
+                }
+                else {
+                    System.out.println("Successful API call");
+                    apiResponse.addAll(response.body());
+                    for (Exercise e : response.body()) {
+                        System.out.println(e.getName());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Exercise>> call, Throwable t) {
+                System.out.println("Failed API call");
+            }
+        });
+
+        return apiResponse;
     }
 }
 
