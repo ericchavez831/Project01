@@ -5,44 +5,58 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 
-import java.util.ArrayList;
-public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder> {
-    private ArrayList<ExampleExercise> mExampleList;
-    public static class ExampleViewHolder extends RecyclerView.ViewHolder {
-        public ImageView mImageView;
+public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExerciseViewHolder> {
+    private List<Exercise> mExampleList;
+
+    public class ExerciseViewHolder extends RecyclerView.ViewHolder {
+//        public ImageView mImageView;
         public TextView mName;
         public TextView mEquipment;
         public TextView mTarget;
         public TextView mBodyPart;
 
-        public ExampleViewHolder(View itemView) {
+        public ExerciseViewHolder(View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.imageView);
+//            mImageView = itemView.findViewById(R.id.imageView);
             mName = itemView.findViewById(R.id.tvExerciseName);
             mEquipment = itemView.findViewById(R.id.tvEquipment);
             mTarget = itemView.findViewById(R.id.tvTarget);
             mBodyPart = itemView.findViewById(R.id.tvBodyPart);
         }
+
+        public void bind(Exercise exercise) {
+//            Glide.with(itemView)
+//                    .load(exercise.getGifUrl())
+//                    .into(mImageView);
+
+            mName.setText("Exercise: " + exercise.getName());
+            mEquipment.setText("Equipment: " + exercise.getEquipment());
+            mTarget.setText("Target Muscle: " + exercise.getTarget());
+            mBodyPart.setText("Body Part: " + exercise.getBodyPart() + "\n");
+        }
     }
-    public ExampleAdapter(ArrayList<ExampleExercise> exampleList) {
+
+    public ExampleAdapter(List<Exercise> exampleList) {
         mExampleList = exampleList;
     }
+
     @Override
-    public ExampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ExerciseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exercise, parent, false);
-        ExampleViewHolder evh = new ExampleViewHolder(v);
+        ExerciseViewHolder evh = new ExerciseViewHolder(v);
         return evh;
     }
+
     @Override
-    public void onBindViewHolder(ExampleViewHolder holder, int position) {
-        ExampleExercise currentItem = mExampleList.get(position);
-        holder.mName.setText(currentItem.getName());
-        holder.mEquipment.setText(currentItem.getEquipment());
-        holder.mTarget.setText(currentItem.getTarget());
-        holder.mBodyPart.setText(currentItem.getBodyPart());
+    public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
+        Exercise exercise = mExampleList.get(position);
+        holder.bind(exercise);
     }
+
     @Override
     public int getItemCount() {
         return mExampleList.size();

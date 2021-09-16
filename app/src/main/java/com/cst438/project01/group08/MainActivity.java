@@ -14,8 +14,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("Printing exercises");
-        List<Exercise> exercises = ApiCall.getByBodypart("waist");
-        System.out.println("Exercises: " + exercises);
+//        System.out.println("Printing exercises");
+//        List<Exercise> exercises = ApiCall.getByBodypart("waist");
+//        System.out.println("Exercises: " + exercises);
+
+        Intent i = new Intent(this, DisplayActivity.class);
+        startActivity(i);
+        finish();
+
+
     }
 }
