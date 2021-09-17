@@ -3,6 +3,8 @@ package com.cst438.project01.group08;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,14 +18,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.cst438.project01.group08.Search;
 
+/**
+ *
+ * <h2><b>Display Activity</b></h2>
+ * The display activity contains the functionality to get api data, search, and display exercises.
+ * Exercises will be displayed using recycler view and will show ExerciseName, TargetMuscle, BodyPart,
+ * and Equipment. Conner worked on API call that is used within the onCreate.
+ *
+ * @author Eric Chavez Velez
+ */
 
 public class DisplayActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     public Button search;
+    public Button logout;
     public EditText userInput;
 
     @Override
@@ -42,6 +53,7 @@ public class DisplayActivity extends AppCompatActivity {
         List<Exercise> allExercises = new ArrayList<>();
         mLayoutManager = new LinearLayoutManager(this);
         search = findViewById(R.id.btnSearch);
+        logout = findViewById(R.id.btnLogout);
 
         call.enqueue(new Callback<List<Exercise>>() {
             @Override
@@ -51,7 +63,7 @@ public class DisplayActivity extends AppCompatActivity {
                 }
                 else {
                     System.out.println("Successful API call");
-                    apiResponse.addAll(response.body()); // 1350
+                    apiResponse.addAll(response.body());
 
                     for(int i = 0; i < 10; i++){
                         // Getting random exercises
@@ -80,6 +92,7 @@ public class DisplayActivity extends AppCompatActivity {
                 String mUserInput;
                 Search search = new Search();
                 Boolean empty;
+                int iterator;
                 List<Exercise> searchedExercises;
 
                 userInput = findViewById(R.id.etSearch);
@@ -92,7 +105,9 @@ public class DisplayActivity extends AppCompatActivity {
                     List<Exercise> randomExercises = new ArrayList<>();
                     searchedExercises = search.getSearchData(apiResponse, mUserInput);
 
-                    int iterator;
+                    if(noExercises(searchedExercises)){
+                        return;
+                    }
                     // clear recycler view
                     allExercises.clear();
                     mAdapter.notifyDataSetChanged();
@@ -118,19 +133,34 @@ public class DisplayActivity extends AppCompatActivity {
                 }else{
                     Log.v("SEARCH", "Empty field");
                 }
+            }
+        });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DisplayActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
     }
 
     // Function to test if edit text contains an empty field
-    public boolean emptyText(String userInput){
+    public static boolean emptyText(String userInput){
         if(userInput.length() != 0){
             return false;
         }
         return true;
     }
 
+    // Function to test if edit text contains an empty field
+    public static boolean noExercises(List<Exercise> exercises){
+        if(exercises.size() == 0){
+            return true;
+        }
+        return false;
+    }
 
 }

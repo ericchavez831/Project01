@@ -4,16 +4,42 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Example local unit test, which will execute on the development machine (host).
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * <h2><b>DisplayActivityUnitTest</b></h2>
+ * These are unit tests to test the display activity class.
+ *
+ * @author Eric Chavez Velez
  */
 
 public class DisplayActivityUnitTest {
+
     @Test
-    public void missingExerciseInfo() {
-        // Test for missing exercise info
-        assertEquals(4, 2 + 2);
+    public void emptyText() {
+        String userInput = "";
+        assertEquals(true, DisplayActivity.emptyText(userInput));
     }
+
+    @Test
+    public void nonEmptyText() {
+        String userInput = "push ups";
+        assertEquals(false, DisplayActivity.emptyText(userInput));
+    }
+
+    @Test
+    public void noExercises() {
+        List<Exercise> exercises = new ArrayList<>();
+        assertEquals(true, DisplayActivity.noExercises(exercises));
+    }
+
+    @Test
+    public void yesExercises() {
+        List<Exercise> exercises = new ArrayList<>();
+        exercises.add(new Exercise("www.gif.com", "Push Up", "None", "Biceps", "Arms"));
+        assertEquals(false, DisplayActivity.noExercises(exercises));
+    }
+
 }

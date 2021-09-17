@@ -13,6 +13,13 @@ import com.cst438.project01.group08.data.UserDAO;
 import com.cst438.project01.group08.model.UserDataBase;
 import com.cst438.project01.group08.model.User;
 
+/**
+ *
+ * <h2><b>RegisterActivity</b></h2>
+ * The register activity contains the functionality to register a user to application.
+ *
+ * @author Cristina Martinez
+ */
 
 public class RegisterActivity extends AppCompatActivity {
     EditText mUsername, mPassword, mPasswordConfirm;

@@ -13,6 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ *
+ * <h2><b>Login Activity</b></h2>
+ * The login activity contains the functionality to login a user to the application user a database.
+ *
+ * @author Cristina Martinez
+ */
+
 public class LoginActivity extends AppCompatActivity {
     EditText mUsername, mPassword;
     Button buttonLogin;
