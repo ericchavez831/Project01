@@ -1,5 +1,13 @@
 package com.cst438.project01.group08;
 
+/**
+ *
+ * <h2><b>Exercise</b></h2>
+ * This is the Exercise data model that is used throughout the application to display the exercises.
+ *
+ * @authors Angel Gutierrez & Conner Turetkzy
+ */
+
 public class Exercise {
     String bodyPart;
     String equipment;

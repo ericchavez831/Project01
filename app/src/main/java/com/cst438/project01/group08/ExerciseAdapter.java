@@ -8,6 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+/**
+ *
+ * <h2><b>Exercise Adapter</b></h2>
+ * The exercise adapter is used to adapt the Exercise data types into the view holder
+ * to be displayed on the application.
+ *
+ * @author Eric Chavez
+ */
+
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
     private List<Exercise> mExampleList;
 

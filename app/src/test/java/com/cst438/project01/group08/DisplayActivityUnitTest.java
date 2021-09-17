@@ -5,9 +5,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * <h2><b>DisplayActivityUnitTest</b></h2>
+ * These are unit tests to test the display activity class. *WIP*
+ *
+ * @author Eric Chavez
  */
 
 public class DisplayActivityUnitTest {

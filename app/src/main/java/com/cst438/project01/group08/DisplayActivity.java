@@ -16,8 +16,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.cst438.project01.group08.Search;
 
+/**
+ *
+ * <h2><b>Display Activity</b></h2>
+ * The display activity contains the functionality to get api data, search, and display exercises.
+ * Exercises will be displayed using recycler view and will show ExerciseName, TargetMuscle, BodyPart,
+ * and Equipment. Conner worked on API call that is used within the onCreate.
+ *
+ * @author Eric Chavez Velez
+ */
 
 public class DisplayActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -51,7 +59,7 @@ public class DisplayActivity extends AppCompatActivity {
                 }
                 else {
                     System.out.println("Successful API call");
-                    apiResponse.addAll(response.body()); // 1350
+                    apiResponse.addAll(response.body());
 
                     for(int i = 0; i < 10; i++){
                         // Getting random exercises
@@ -118,7 +126,6 @@ public class DisplayActivity extends AppCompatActivity {
                 }else{
                     Log.v("SEARCH", "Empty field");
                 }
-
             }
         });
 
@@ -131,6 +138,5 @@ public class DisplayActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
 }
