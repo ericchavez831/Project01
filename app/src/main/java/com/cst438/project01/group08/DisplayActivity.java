@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,7 @@ public class DisplayActivity extends AppCompatActivity {
                     // Adding the exercises to recycler view
                     mRecyclerView = findViewById(R.id.rvExercises);
                     mRecyclerView.setHasFixedSize(true);
-                    mAdapter = new ExampleAdapter(allExercises);
+                    mAdapter = new ExerciseAdapter(allExercises);
                     mRecyclerView.setLayoutManager(mLayoutManager);
                     mRecyclerView.setAdapter(mAdapter);
                 }
@@ -80,19 +80,16 @@ public class DisplayActivity extends AppCompatActivity {
                 String mUserInput, exerciseType;
                 Boolean empty;
                 userInput = findViewById(R.id.etSearch);
-                mUserInput = userInput.getText().toString(); //bodypart,upper legs
+                mUserInput = userInput.getText().toString();
 
                 empty = emptyText(mUserInput);
 
-                // if not empty (we search)
                 if(!empty){
-
 
                     // split the mUserInput by the comma to get the type and input
 
                     // public getSearchData List<Exercise> (List<Exercise> apiResponse , string exerciseType, string input)
                     // return a specific list of exercises
-
 
 
                     // allExercises.clear();
@@ -107,11 +104,6 @@ public class DisplayActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    // Function to check if exercises contain all information from API
-    public static boolean missingExerciseInfo(){
-        return false;
     }
 
     // Function to test if edit text contains an empty field

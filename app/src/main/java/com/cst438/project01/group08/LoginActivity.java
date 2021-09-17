@@ -10,19 +10,17 @@ import com.cst438.project01.group08.model.UserDataBase;
 import com.cst438.project01.group08.model.User;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
-
 public class LoginActivity extends AppCompatActivity {
     EditText editTextUser, editTextPassword;
     Button buttonLogin;
-    TextView textViewRegister;
+    TextView registerTextView;
     UserDAO db;
     UserDataBase dataBase;
 
@@ -34,22 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         editTextUser = findViewById(R.id.editTextTextPersonName);
         editTextPassword = findViewById(R.id.editTextTextPassword);
         buttonLogin = findViewById(R.id.button);
-
-        textViewRegister = findViewById(R.id.textViewRegister);
+        registerTextView = findViewById(R.id.tvRegister);
 
         dataBase = Room.databaseBuilder(this, UserDataBase.class, "mi-database.db")
                 .allowMainThreadQueries()
                 .build();
 
         db = dataBase.getUserDao();
-
-
-        textViewRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-            }
-        });
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,13 +48,21 @@ public class LoginActivity extends AppCompatActivity {
 
                 User user = db.getUser(userName, password);
                 if (user != null) {
-                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent i = new Intent(LoginActivity.this, DisplayActivity.class);
                     i.putExtra("User", user);
                     startActivity(i);
                     finish();
                 }else{
                     Toast.makeText(LoginActivity.this, "Unregistered user, or incorrect", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        registerTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(i);
             }
         });
 

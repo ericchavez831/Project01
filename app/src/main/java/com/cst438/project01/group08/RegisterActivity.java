@@ -16,12 +16,9 @@ import com.cst438.project01.group08.model.UserDataBase;
 import com.cst438.project01.group08.model.User;
 
 
-
 public class RegisterActivity extends AppCompatActivity {
-    EditText editTextUsername,editTextPassword, editTextCnfPassword;
+    EditText editTextUsername, editTextPassword, editTextCnfPassword;
     Button buttonRegister;
-
-    TextView textViewLogin;
     private UserDAO userDao;
 
     @Override
@@ -34,14 +31,6 @@ public class RegisterActivity extends AppCompatActivity {
         editTextCnfPassword = findViewById(R.id.editTextTextPassword3);
         buttonRegister = findViewById(R.id.button2);
 
-
-
-        textViewLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-            }
-        });
 
         userDao = Room.databaseBuilder(this, UserDataBase.class, "mi-database.db").allowMainThreadQueries()
                 .build().getUserDao();
@@ -58,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userDao.insert(user);
                     Intent moveToLogin = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(moveToLogin);
+                    finish();
 
                 } else {
                     Toast.makeText(RegisterActivity.this, "Password is not matching", Toast.LENGTH_SHORT).show();
