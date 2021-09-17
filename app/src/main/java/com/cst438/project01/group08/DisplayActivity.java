@@ -16,6 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.cst438.project01.group08.Search;
 
 
 public class DisplayActivity extends AppCompatActivity {
@@ -76,25 +77,43 @@ public class DisplayActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mUserInput, exerciseType;
+                String mUserInput;
+                Search search = new Search();
                 Boolean empty;
+                List<Exercise> searchedExercises;
+
                 userInput = findViewById(R.id.etSearch);
                 mUserInput = userInput.getText().toString();
 
                 empty = emptyText(mUserInput);
 
                 if(!empty){
+                    // get exercises
+                    List<Exercise> randomExercises = new ArrayList<>();
+                    searchedExercises = search.getSearchData(apiResponse, mUserInput);
 
-                    // split the mUserInput by the comma to get the type and input
+                    int iterator;
+                    // clear recycler view
+                    allExercises.clear();
+                    mAdapter.notifyDataSetChanged();
 
-                    // public getSearchData List<Exercise> (List<Exercise> apiResponse , string exerciseType, string input)
-                    // return a specific list of exercises
+                    if(searchedExercises.size() < 10){
+                        iterator = searchedExercises.size();
+                    }
+                    else{
+                        iterator = 10;
+                    }
 
+                    for(int i = 0; i < iterator; i++){
+                        randomExercises.add(new Exercise(searchedExercises.get(i).getGifUrl(), searchedExercises.get(i).getName(), searchedExercises.get(i).getEquipment(), searchedExercises.get(i).getTarget(), searchedExercises.get(i).getBodyPart()));
+                    }
 
-                    // allExercises.clear();
-                    // mAdapter.notifyDataSetChanged();
-
-                    Log.v("SEARCH", "Search begins");
+                    // Adding the exercises to recycler view
+                    mRecyclerView = findViewById(R.id.rvExercises);
+                    mRecyclerView.setHasFixedSize(true);
+                    mAdapter = new ExerciseAdapter(randomExercises);
+                    mRecyclerView.setLayoutManager(mLayoutManager);
+                    mRecyclerView.setAdapter(mAdapter);
 
                 }else{
                     Log.v("SEARCH", "Empty field");
@@ -113,8 +132,5 @@ public class DisplayActivity extends AppCompatActivity {
         return true;
     }
 
-    public List<Exercise> getSearchData(List<Exercise> apiResponse, String exerciseType, String userInput){
-        return null;
-    }
 
 }
