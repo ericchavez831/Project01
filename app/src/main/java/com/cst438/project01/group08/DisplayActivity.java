@@ -88,6 +88,7 @@ public class DisplayActivity extends AppCompatActivity {
                 String mUserInput;
                 Search search = new Search();
                 Boolean empty;
+                int iterator;
                 List<Exercise> searchedExercises;
 
                 userInput = findViewById(R.id.etSearch);
@@ -100,7 +101,9 @@ public class DisplayActivity extends AppCompatActivity {
                     List<Exercise> randomExercises = new ArrayList<>();
                     searchedExercises = search.getSearchData(apiResponse, mUserInput);
 
-                    int iterator;
+                    if(noExercises(searchedExercises)){
+                        return;
+                    }
                     // clear recycler view
                     allExercises.clear();
                     mAdapter.notifyDataSetChanged();
@@ -132,11 +135,19 @@ public class DisplayActivity extends AppCompatActivity {
     }
 
     // Function to test if edit text contains an empty field
-    public boolean emptyText(String userInput){
+    public static boolean emptyText(String userInput){
         if(userInput.length() != 0){
             return false;
         }
         return true;
+    }
+
+    // Function to test if edit text contains an empty field
+    public static boolean noExercises(List<Exercise> exercises){
+        if(exercises.size() == 0){
+            return true;
+        }
+        return false;
     }
 
 }
