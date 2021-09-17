@@ -1,9 +1,11 @@
 package com.cst438.project01.group08;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Search {
     private List<Exercise> currExercises;
+    private List<Exercise> list = new ArrayList<>();
 
     public List<Exercise> getSearchData(List<Exercise> apiResponse, String userInput) {
         currExercises = apiResponse;
@@ -28,37 +30,38 @@ public class Search {
             searchBodyPart(specification);
         }
 
-        return currExercises;
+        return list;
     }
 
     public void searchGeneric(String specification) {
+
         for (int i = 0; i < currExercises.size(); i++) {
-            if (! currExercises.get(i).getName().toLowerCase().contains(specification)) {
-                currExercises.remove(i);
+            if (currExercises.get(i).getName().toLowerCase().contains(specification)) {
+                list.add(currExercises.get(i));
             }
         }
     }
 
     public void searchTargets(String specification) {
         for (int i = 0; i < currExercises.size(); i++) {
-            if (! currExercises.get(i).getTarget().equalsIgnoreCase(specification)) {
-                currExercises.remove(i);
+            if (currExercises.get(i).getTarget().equals(specification)) {
+                list.add(currExercises.get(i));
             }
         }
     }
 
     public void searchEquipment(String specification) {
         for (int i = 0; i < currExercises.size(); i++) {
-            if (! currExercises.get(i).getEquipment().equalsIgnoreCase(specification)) {
-                currExercises.remove(i);
+            if (currExercises.get(i).getEquipment().equals(specification)) {
+                list.add(currExercises.get(i));
             }
         }
     }
 
     public void searchBodyPart(String specification) {
         for (int i = 0; i < currExercises.size(); i++) {
-            if (! currExercises.get(i).getBodyPart().equalsIgnoreCase(specification)) {
-                currExercises.remove(i);
+            if (currExercises.get(i).getBodyPart().equals(specification)) {
+                list.add(currExercises.get(i));
             }
         }
     }
