@@ -1,12 +1,20 @@
 package com.cst438.project01.group08;
 
 public class Exercise {
-    private String bodyPart;
-    private String equipment;
-    private String gifUrl;
-    private String id;
-    private String name;
-    private String target;
+    String bodyPart;
+    String equipment;
+    String gifUrl;
+    String id;
+    String name;
+    String target;
+
+    public Exercise (String mGifUrl, String mName, String mEquipment, String mTarget, String mBodyPart){
+        gifUrl = mGifUrl;
+        name = mName;
+        equipment = mEquipment;
+        target = mTarget;
+        bodyPart = mBodyPart;
+    }
 
     public String getBodyPart() {
         return bodyPart;
@@ -31,5 +39,4 @@ public class Exercise {
     public String getTarget() {
         return target;
     }
-
 }
