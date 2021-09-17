@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cst438.project01.group08.data.UserDAO;
@@ -16,12 +15,9 @@ import com.cst438.project01.group08.model.UserDataBase;
 import com.cst438.project01.group08.model.User;
 
 
-
 public class RegisterActivity extends AppCompatActivity {
     EditText editTextUsername,editTextPassword, editTextCnfPassword;
     Button buttonRegister;
-
-    TextView textViewLogin;
     private UserDAO userDao;
 
     @Override
@@ -33,15 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextTextPassword2);
         editTextCnfPassword = findViewById(R.id.editTextTextPassword3);
         buttonRegister = findViewById(R.id.button2);
-
-
-
-        textViewLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-            }
-        });
 
         userDao = Room.databaseBuilder(this, UserDataBase.class, "mi-database.db").allowMainThreadQueries()
                 .build().getUserDao();
