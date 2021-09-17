@@ -3,6 +3,8 @@ package com.cst438.project01.group08;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +34,7 @@ public class DisplayActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     public Button search;
+    public Button logout;
     public EditText userInput;
 
     @Override
@@ -50,6 +53,7 @@ public class DisplayActivity extends AppCompatActivity {
         List<Exercise> allExercises = new ArrayList<>();
         mLayoutManager = new LinearLayoutManager(this);
         search = findViewById(R.id.btnSearch);
+        logout = findViewById(R.id.btnLogout);
 
         call.enqueue(new Callback<List<Exercise>>() {
             @Override
@@ -129,6 +133,15 @@ public class DisplayActivity extends AppCompatActivity {
                 }else{
                     Log.v("SEARCH", "Empty field");
                 }
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DisplayActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 
