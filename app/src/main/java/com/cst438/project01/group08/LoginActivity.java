@@ -2,15 +2,11 @@ package com.cst438.project01.group08;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
-
 import android.os.Bundle;
-
 import com.cst438.project01.group08.data.UserDAO;
 import com.cst438.project01.group08.model.UserDataBase;
 import com.cst438.project01.group08.model.User;
-
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText editTextUser, editTextPassword;
+    EditText mUsername, mPassword;
     Button buttonLogin;
     TextView registerTextView;
     UserDAO db;
@@ -29,9 +25,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        editTextUser = findViewById(R.id.editTextTextPersonName);
-        editTextPassword = findViewById(R.id.editTextTextPassword);
-        buttonLogin = findViewById(R.id.button);
+        mUsername = findViewById(R.id.etUsername);
+        mPassword = findViewById(R.id.etPassword);
+        buttonLogin = findViewById(R.id.btnLogin);
         registerTextView = findViewById(R.id.tvRegister);
 
         dataBase = Room.databaseBuilder(this, UserDataBase.class, "mi-database.db")
@@ -43,8 +39,14 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userName = editTextUser.getText().toString().trim();
-                String password = editTextPassword.getText().toString().trim();
+                String userName = mUsername.getText().toString().trim();
+                String password = mPassword.getText().toString().trim();
+                Boolean empty = emptyAccount(userName, password);
+
+                if(empty){
+                    Toast.makeText(LoginActivity.this, "Empty Field(s)", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 User user = db.getUser(userName, password);
                 if (user != null) {
@@ -65,6 +67,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
 
+    public boolean emptyAccount(String username, String password){
+        if(username.length() == 0 || password.length() == 0){
+            return true;
+        }
+
+        return false;
     }
 }
